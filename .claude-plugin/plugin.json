@@ -1,0 +1,9 @@
+{
+  "name": "leap",
+  "description": "LEAP Economics resources: house style for LaTeX working papers, beamer slides, and R figures. Built for Johan Fourie's research group at LEAP, Stellenbosch University.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Johan Fourie",
+    "url": "https://www.johanfourie.com"
+  }
+}
