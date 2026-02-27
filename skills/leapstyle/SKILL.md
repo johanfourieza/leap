@@ -1,8 +1,8 @@
 ---
 name: leapstyle
-description: Apply the LEAP Economics house style to LaTeX working papers, beamer slides, or R figures. Covers preambles, colour palette, graph theme, and content guidelines.
+description: Apply the LEAP Economics house style to LaTeX working papers, beamer slides, R figures, or academic writing and editing. Covers preambles, colour palette, graph theme, and comprehensive writing and editing guidelines.
 user-invocable: true
-argument-hint: <paper|slides|graph> [filename]
+argument-hint: <paper|slides|graph|writing> [filename]
 ---
 
 # LEAP Style Guide
@@ -16,7 +16,8 @@ Covers three outputs: **working papers** (LaTeX article), **presentations** (LaT
 /leapstyle paper myfile.tex        # apply the working paper template
 /leapstyle slides myfile.tex       # apply the beamer slide template
 /leapstyle graph myscript.R        # apply the LEAP graph identity to an R script
-/leapstyle                         # (no argument) describe all three styles
+/leapstyle writing myfile.tex      # apply LEAP writing and editing standards
+/leapstyle                         # (no argument) describe all four styles
 ```
 
 ---
@@ -362,6 +363,8 @@ If invoked without an argument (i.e. `/leapstyle slides`), create a new file wit
 
 ## Part 3: R Figures (ggplot2)
 
+**Preferred defaults:** All LEAP figures are saved at **10 x 6 inches** (width x height) and **600 DPI** unless the context demands otherwise.
+
 When applying the LEAP graph style to an R script, insert the following block near the top of the script (after `library()` calls, before any plotting code). Then update all figures to use `theme_leap()`, the LEAP colour palette, and `save_leap_fig()`.
 
 ### LEAP colour palette and theme
@@ -515,37 +518,425 @@ save_leap_fig("Fig_example_dual_axis.png", fig2, width = 10, height = 6)
 
 ---
 
-## Part 4: Writing Style
+## Part 4: Writing and Editing Guide
 
-### "Not X but Y" constructions
+A comprehensive writing-and-editing guide so that drafts come back in plain, classic English: ruthless removal of clutter; strong reader-orientation; careful punctuation; and strict attention to whether claims, citations, terminology and numbers actually make sense.
+
+### Hard constraints (non-negotiables)
+
+1. Do not invent facts, numbers, citations, page numbers, archival call numbers or quotations.
+2. Do not add new literature "for completeness".
+3. Do not change substantive meaning without flagging it as a query.
+4. Do not "fix" apparent data errors by guesswork; query them.
+5. Avoid ChatGPT tell-tales: em dashes; padded buzzwords; generic bureaucratic phrasing.
+
+---
+
+### 4.1 Editing priorities
+
+Prioritise the following, in roughly this order.
+
+1. **Meaning first.** If a sentence is ambiguous, query it ("Meaning unclear...") or rewrite for explicit meaning.
+2. **Reader-first organisation.** The reader should never have to work to follow the thread: avoid meandering structure, backwards references and needless detours.
+3. **Plain, classic English.** Avoid bureaucratic/journalistic fashion; prefer ordinary words and direct syntax.
+4. **Concision without loss of content.** Cut redundancy, throat-clearing, "thesis" scaffolding and wordy glue phrases.
+5. **Precision of terms and claims.** Words must mean what they mean; technical/idiomatic phrases must be used correctly; comparisons must use correct grammar; key distinctions must be maintained.
+6. **Consistency.** Consistent terminology, style, citation format, spelling (-ise not -ize when UK style) and typographic conventions.
+7. **Venue compliance.** Check journal-specific rules (quotes, commas, section numbering, citation punctuation, abstract word limits).
+
+---
+
+### 4.2 Macro-structure
+
+#### Openings
+
+Be unusually strict about the first paragraph.
+
+- Keep the opening paragraph **short, brisk and simple**. No long, convoluted sentences.
+- Start with **the topic**, not with methodological or historiographical throat-clearing.
+- Avoid footnotes and (as a rule) avoid citations in the first paragraph.
+- Do not overload the opener with detail or unfamiliar proper nouns that have not yet been motivated.
+- The opening should "get the reader into the story quickly".
+
+LLM action: Rewrite the opening to be plain and inviting; move detail/citations later; remove first-paragraph footnotes unless essential.
+
+#### Thesis-language removal
+
+Avoid "thesis language" and "examiner-facing" writing.
+
+Common targets:
+- Signpost paragraphs ("This chapter/paper is structured as follows...") unless the journal demands them.
+- Meta-writing ("It is important to...", "This paper has shown...") -- write the content directly.
+- Over-citation and "student" citation patterns ("plonk, plonk, plonk" strings).
+
+LLM action: Remove thesis-like scaffolding, unless venue requires it; replace with direct statements of contribution and findings.
+
+#### Lists and signposting
+
+- If you say "we contribute in three ways", **state the three ways clearly** in one sentence before elaborating.
+- Avoid "firstly, secondly..." where a clean preview sentence will do.
+- Summarise the list; then give details.
+
+LLM action: Turn "preview + ramble" into: preview sentence (list) then short paragraphs corresponding to each item.
+
+#### Triplets (lists of three)
+
+- Do not default to the rhetorical "rule of three". Writers instinctively reach for three-item lists because they sound good, but the pattern quickly becomes formulaic.
+- Vary list lengths: one item, two, four or even five are all fine. Use three when three is genuinely the right number, not because three sounds nice.
+- When editing, actively look for triplets and ask whether each item earns its place. If one item is weaker or redundant, cut it. If a fourth item belongs, add it.
+
+#### Paragraph integrity
+
+- One paragraph, one job. Avoid drifting off-topic.
+- Avoid repetition ("Don't tell the reader what you've already said").
+- Avoid "going forward/back" references; fix organisation instead.
+
+LLM action: Reorder paragraphs to prevent forward/back references; delete repetition; add topic sentences when needed.
+
+---
+
+### 4.3 Sentence-level style
+
+#### Prefer direct syntax over roundabout phrasing
+
+- Replace expletive openings ("There is/are...") with concrete subjects where possible.
+- Replace nouny constructions with verbs ("played an important role in increasing" -> "increased").
+- Avoid tacking on clauses with "with" when a new sentence would be clearer.
+- Prefer active voice where it clarifies agency (especially for methods).
+
+LLM action: Seek the actor and the action; make the subject do the verb; split sentences that are overloaded.
+
+#### Break up long sentences
+
+- Long sentences are acceptable only if they remain easy to parse. Often break 50-70-word sentences into smaller ones.
+- Sometimes a new sentence is better than multiple semi-colons.
+
+LLM action: If a sentence exceeds ~30-35 words, check whether splitting improves readability.
+
+#### Use repetition for comparisons
+
+Simple repetition can clarify comparisons ("more X..., more Y...").
+
+LLM action: When contrasting groups, use parallel structure rather than baroque phrasing.
+
+#### Avoid "elegant variation"
+
+Don't use multiple terms for the same thing ("run by/administered/under the direction of").
+
+LLM action: Pick one term for a concept and reuse it; use synonyms only when the meaning differs.
+
+#### "While" discipline
+
+- Don't overuse "While" to start sentences for contrast; often "But" or "Although" is better.
+
+LLM action: Replace sentence-initial "While" (contrastive) with "But/Although" where appropriate.
+
+#### "Former/latter" discipline
+
+- Avoid "former/latter": it forces the reader to look back.
+
+LLM action: Repeat the nouns or rewrite the sentence.
+
+#### Allow And/But at the start of sentences
+
+It is acceptable (and often good style) to start a sentence with And or But.
+
+LLM action: Use And/But judiciously to control flow; don't fear it when it improves readability.
+
+#### "Not X but Y" constructions
 
 - Minimise sentences that contain both the words "not" and "but" (e.g., "not the poorest but the middle").
 - **Hard limit: no more than two such sentences in an entire paper.**
-- Rewrite others using alternative structures: concessive clauses ("although..."), positive framing, or splitting into two sentences.
+- Rewrite others using alternative structures: concessive clauses ("although..."), positive framing or splitting into two sentences.
 
-### Triplets (lists of three)
+---
 
-- Do not default to the rhetorical "rule of three". Writers instinctively reach for three-item lists because they sound good, but the pattern quickly becomes formulaic.
-- Vary list lengths: one item, two, four, or even five are all fine. Use three when three is genuinely the right number, not because three sounds nice.
-- When editing, actively look for triplets and ask whether each item earns its place. If one item is weaker or redundant, cut it. If a fourth item belongs, add it.
+### 4.4 Word choice
 
-### Banned words
+#### Plain English over inflated diction
+
+Frequent simplifications:
+- utilise -> use
+- prior to -> before
+- (adverbial) due to -> because of / owing to
+- regarding -> about
+- make use of -> use
+- the majority -> most
+
+LLM action: Prefer short, ordinary words unless technical vocabulary is needed.
+
+#### Avoid Americanisms and language fads
+
+Non-negotiables:
+- Do not use **likely** as an adverb meaning "probably". Prefer "probably", or rewrite ("It is likely that..." -> "This probably...").
+- Do not misuse **as such** to mean "therefore". "As such" means "in this capacity".
+
+LLM action: Audit drafts for these patterns; rewrite rather than swapping words mechanically.
+
+#### Avoid bureaucrat-speak and buzzwords
+
+Avoid bureaucratic language in formal writing (address, leverage, empower, going forward, etc.). See Appendix A below.
+
+LLM action: Replace buzzwords with specific verbs/nouns that say what actually happened.
+
+#### Avoid journalistic language in academic prose
+
+- "deadly" (journalistic, often unquantified)
+- journalistic inversion ("Says Ruggles" rather than "Ruggles says/argues...")
+
+LLM action: Prefer measured, quantified language; keep normal subject-verb order.
+
+#### Words must mean what they mean
+
+Academic writing must use special terms correctly (examples: begs the question; contemporary; as such; specifically vs particularly). See Appendix B below.
+
+LLM action: When a phrase has a technical meaning, use it technically; otherwise choose a safer alternative.
+
+#### Comparisons: use "than"
+
+Avoid circumlocutions around "than" (e.g., "more relative to", "higher likelihood relative to"). Use "than" for comparisons.
+
+LLM action: Rewrite comparisons to use standard comparative grammar: "more X than Y".
+
+#### "Impact" as a verb
+
+Replace "impact" (verb) with "affect".
+
+LLM action: Replace "impact" (verb) with "affect/influence" unless the usage is deliberate.
+
+#### Banned words
 
 - **underscore**: Never use "underscore" as a verb (e.g., "this underscores the importance of..."). Use "highlights", "reinforces", "confirms" or similar alternatives.
 - **utilise / utilize**: Never use. Always use "use" instead.
 
-### Oxford comma
+#### Terminology consistency and precision
 
-- **Do not use the Oxford comma.** In lists of three or more items, omit the comma before the final "and" or "or".
-- Write `A, B and C` — not `A, B, and C`.
-- **Exception**: Keep the comma if removing it would create genuine ambiguity (e.g., "Stellenbosch, the Cape, and parts of Swellendam and Worcester" — dropping the comma could misparse the grouping).
+- Query terminology that is ambiguous or politically/chronologically anachronistic.
+- Object to unnecessary synonym-swapping (elegant variation).
 
-### Dashes
+LLM action: Enforce one term per concept; if a term is historically contingent or ambiguous, query it and recommend an explicit definition at first mention.
 
-- **Avoid em dashes** (`---` in LaTeX). They are overused and disrupt the flow of prose.
-- When a parenthetical or aside is needed, prefer **en dashes with spaces** (`--` with a space before and after) as the default punctuation. Example: `the frontier farmers -- many of whom owned few slaves -- were drawn to the interior`.
-- Use em dashes only in rare cases where a very abrupt break is genuinely needed. As a rule of thumb, if you find yourself using more than one or two per page, switch to en dashes or restructure the sentence.
+---
+
+### 4.5 Punctuation, typography and formatting
+
+#### Venue-first, then default
+
+Check the venue's style (examples: AEJ vs EHR vs Tourism Economics vs JEH). The rule is:
+
+1. If journal/publisher style is known, follow it.
+2. If not, use LEAP default (below).
+
+LLM action: If venue is unknown, apply LEAP default and add a margin comment: "Confirm venue style for quotes/serial comma/citation punctuation/section numbering."
+
+#### Serial/Oxford comma
+
+- **Do not use the Oxford/serial comma by default.**
+- Write `A, B and C` -- not `A, B, and C`.
+- Use it only if the sense requires it, or if the publication demands it.
+- **Exception**: Keep the comma if removing it would create genuine ambiguity (e.g., "Stellenbosch, the Cape, and parts of Swellendam and Worcester" -- dropping the comma could misparse the grouping).
+- Be consistent.
+
+LLM action: Remove unnecessary serial commas; keep only those needed to prevent ambiguity.
+
+#### Colons vs semi-colons
+
+- Use a **colon** to introduce an explanation, elaboration, extension or list.
+- Use a **semi-colon** mainly to:
+  - hinge between contrasting statements, or
+  - create a long pause stronger than a comma.
+- Don't overuse semi-colons: they make prose heavy.
+
+LLM action: Replace incorrect semi-colons with colons; split sentences if semi-colons accumulate.
+
+#### Dashes
+
+- **Don't use em dashes.** They are overused and disrupt the flow of prose.
+- Use **en dashes sparingly**. Prefer commas or parentheses unless the dash is doing real work.
+- When a parenthetical is needed, prefer **en dashes with spaces** (`--` with a space before and after). Example: `the frontier farmers -- many of whom owned few slaves -- were drawn to the interior`.
+- Convert hyphen ranges to en dashes (e.g., 1850-1900 -> 1850--1900).
 - In LaTeX: en dash with spaces = `word -- word`; em dash (sparingly) = `word---word`.
+
+LLM action: Convert hyphen ranges to en dashes; avoid em dashes entirely; reduce dash frequency.
+
+#### Hyphenation
+
+- No hyphen after -ly (e.g., "highly developed", not "highly-developed").
+- Add hyphens to prevent misreading.
+- Hyphenation can be aesthetic/clarifying; apply consistently.
+
+LLM action: Fix -ly compounds; hyphenate compound modifiers before nouns when needed.
+
+#### Quotes and quotation punctuation
+
+- Single quotes are default in UK style, but follow a journal that uses double quotes.
+- British convention: closing inverted comma precedes comma/full stop (unless the punctuation belongs to the quoted material).
+
+LLM action: Choose single vs double quotes based on venue; otherwise default to UK single quotes and British punctuation placement.
+
+#### Spelling and variants
+
+- Default to UK spelling: -ise not -ize.
+- Be consistent within a document.
+- Preserve official names as they are (some proper nouns may use US spelling).
+
+LLM action: Enforce UK spelling and tidy inconsistencies; query if venue requires US style.
+
+#### Capitalisation
+
+- Avoid unnecessary capitals (subjects like maths/history; generic terms).
+- Capitalise only proper nouns or formal course/module titles where relevant.
+- Be consistent (including with contested terms); avoid performative inconsistency.
+
+LLM action: Lower-case generic descriptors; keep proper nouns capitalised; query venue-driven capitalisation choices when sensitive.
+
+#### Slashes
+
+- Avoid slashed alternatives ("and/or") in formal writing.
+
+LLM action: Replace slashes with explicit prose ("and", "or", or "and... or..."), depending on meaning.
+
+#### Abbreviations and acronyms
+
+- Do not assume readers know an acronym; spell it out at first mention.
+- Avoid abbreviations unless they genuinely reduce repetition and are standard in the field.
+- Avoid "et al." outside reference-style contexts (see citations section).
+
+LLM action: Spell out at first mention; remove non-standard acronyms; add a margin query if an acronym cannot be expanded from context.
+
+---
+
+### 4.6 Quotation handling
+
+#### Quote only when wording matters
+
+Quote only if the wording is special; otherwise paraphrase.
+
+LLM action: Replace unremarkable quotes with paraphrase; keep essential quotes tight.
+
+#### Integrate quotes smoothly
+
+- Avoid "according to" clutter.
+- Use the simplest reporting verbs; stylistic variety ("explains", "points out") can be distracting.
+- Avoid ugly square brackets; restructure to minimise them.
+
+LLM action: Rewrite lead-ins, integrate quotes grammatically and reduce bracketed insertions.
+
+#### Scare quotes
+
+- Scare quotes imply irony/doubt; if you don't mean that, remove them.
+- Do not put standard expressions in quotes.
+
+LLM action: Remove scare quotes unless the author clearly intends scepticism/irony.
+
+#### Block quotes
+
+- Use a block quote for a long quote (generally >50 words or more than one sentence).
+
+LLM action: Convert long quotations to block format (if required by venue) or paraphrase.
+
+---
+
+### 4.7 Numbers, data and evidential discipline
+
+- Always give denominators/totals alongside percentages ("state the actual number").
+- Avoid calling something an "annual rate" if it is a single year.
+- Present statistics clearly and concisely; avoid leisurely narrative around numbers.
+- Distinguish concepts precisely (e.g., pandemic/virus vs lockdown; don't use one term as shorthand for another).
+- Avoid exaggerated adjectives ("enormous", "deadly") unless quantified and defensible.
+
+LLM action: Do not alter numbers; instead tighten wording around them, standardise the presentation (per venue) and add margin queries for missing totals or possible misinterpretations.
+
+---
+
+### 4.8 Citations, references and footnotes
+
+#### Reference list integrity
+
+- Every cited work must be in the reference list; the list must contain only cited works.
+
+#### Citation placement and density
+
+- Avoid citations in the first paragraph.
+- Do not cite sources for basic facts that can be found anywhere.
+- Avoid scattershot citations; collate them so they serve the reader.
+
+LLM action: Move or consolidate citations; add margin notes when a citation seems irrelevant or when the claim needs a source.
+
+#### Footnote discipline
+
+- Don't use footnotes to expand the text (especially in the first paragraph).
+- Use footnotes for necessary clarifications, source details or venue-required apparatus.
+
+LLM action: Move essential content into the main text; delete non-essential footnote expansions.
+
+#### "et al."
+
+- Use "et al." only for references; not as a vague substitute in prose.
+- Include the full stop after "al.".
+- Check each journal's rule (first citation often does not require listing all authors).
+
+LLM action: Fix incorrect "et al." uses; query author where meaning is unclear ("Who are et al. here?").
+
+#### Ibid.
+
+- Do not use ibid. when the preceding footnote cites several sources.
+
+LLM action: Replace ibid. with the specific reference.
+
+#### Citation punctuation and ordering
+
+- Semi-colons (not commas) between citations in some venues.
+- Citations often alphabetical.
+- Always: journal-specific rules apply.
+
+LLM action: Apply the venue's citation punctuation; if unknown, keep it consistent and add a query.
+
+---
+
+### 4.9 Metaphors, cliches and rhetorical control
+
+- Avoid overused metaphors ("lens" is a frequent irritant).
+- Do not mix metaphors; clashes create absurd mental images.
+- Use metaphors only when they genuinely aid comprehension; otherwise be plain.
+- Avoid cliches ("stark", "eloquent", "perfect storm", etc.).
+
+LLM action: Replace mixed/overused metaphors with literal wording; keep at most one metaphor per paragraph.
+
+---
+
+### Appendix A: Buzzword blacklist
+
+| Avoid | Prefer | Why |
+| --- | --- | --- |
+| address (as a verb) | answer / tackle / deal with / discuss | Bureaucrat-speak. |
+| leverage | use / draw on / take advantage of | Overused management jargon. |
+| empower | enable / give people the means to | Buzzword. |
+| pillar | domain / theme / component | Buzzword; avoid structural metaphors. |
+| going forward | in future / from now on | Bureaucratic cliche. |
+| reach out | contact | Corporate fashion; avoid. |
+| lived experience | (usually) experience | Irritating buzzphrase unless analytically necessary. |
+| challenge (meaning 'problem') | problem / difficulty / constraint | Use 'challenge' only in its dictionary sense. |
+| operationalise | define / measure / specify | Bureaucratic word; not appropriate. |
+| task (used as a verb) | assign / ask / instruct | Bureaucratic usage. |
+| issues (meaning 'problems') | problems / questions / concerns | Avoid vague bureaucratic phrasing. |
+| dynamic (as vague noun/adjective) | process / mechanism / change over time | Be specific; avoid hand-waving. |
+| unique (when you just mean 'special') | distinct / particular / unusual | Avoid empty emphasis. |
+| underscore (as a verb) | highlights / reinforces / confirms | Overused LLM-speak. |
+
+### Appendix B: Misuse watchlist
+
+| Avoid/misuse | Prefer | Rationale |
+| --- | --- | --- |
+| likely (as adverb meaning 'probably') | probably / may / might / is likely to (adjective) | Adverbial use is an American fad. |
+| as such (misused to mean 'therefore') | thus / therefore / so | 'As such' means 'in this capacity'. |
+| begs the question | raises the question / prompts the question | Technical term in logic (petitio principii). |
+| contemporary (meaning 'today') | today / present-day / current | 'Contemporary' means 'at the same time'. |
+| relative to (for comparisons) | than | Incorrect avoidance of 'than'. |
+| more relative to | more than | Incorrect English. |
+| impact (verb) | affect / influence | Not a verb in good prose. |
+| scare quotes | plain wording or a short clarification | Quotes imply irony/doubt. |
+| former/latter | repeat the nouns or rewrite | Slows the reader down. |
 
 ---
 
