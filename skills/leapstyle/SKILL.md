@@ -1,6 +1,6 @@
 ---
 name: leapstyle
-description: Apply the LEAP Economics house style to LaTeX working papers, beamer slides, R figures, or academic writing and editing. Covers preambles, colour palette, graph theme, and comprehensive writing and editing guidelines.
+description: Apply the LEAP Economics house style to LaTeX working papers, beamer slides, R figures, or academic writing and editing. Covers preambles, colour palette, graph theme and comprehensive writing and editing guidelines.
 user-invocable: true
 argument-hint: <paper|slides|graph|writing> [filename]
 ---
@@ -8,7 +8,7 @@ argument-hint: <paper|slides|graph|writing> [filename]
 # LEAP Style Guide
 
 The unified visual identity for Johan Fourie's research group (LEAP, Stellenbosch University).
-Covers three outputs: **working papers** (LaTeX article), **presentations** (LaTeX beamer), and **figures** (R / ggplot2).
+Covers four outputs: **working papers** (LaTeX article), **presentations** (LaTeX beamer), **figures** (R / ggplot2) and **writing** (academic prose editing).
 
 ## Usage
 
@@ -47,7 +47,7 @@ All LEAP outputs draw from one palette. The first four colours are the workhorse
 
 ### Preamble
 
-Replace the preamble of the target `.tex` file with the following, preserving the file's own `\title`, `\author`, `\date`, and any custom commands used in its body.
+Replace the preamble of the target `.tex` file with the following, preserving the file's own `\title`, `\author`, `\date` and any custom commands used in its body.
 
 ```latex
 \documentclass[11pt]{article}
@@ -77,7 +77,7 @@ Replace the preamble of the target `.tex` file with the following, preserving th
 
 ### Title page rules
 
-1. Page 1 contains `\maketitle`, the abstract, keywords, and JEL codes only.
+1. Page 1 contains `\maketitle`, the abstract, keywords and JEL codes only.
 2. Format keywords and JEL codes as:
    ```latex
    \end{abstract}
@@ -165,7 +165,7 @@ Body text begins on page two.
 
 ### Template preamble
 
-Replace the **entire preamble** (everything before `\begin{document}`) of each target beamer file with the following, preserving only the file's own `\title`, `\subtitle`, `\author`, and `\date` lines. If a file defines custom commands used in its body (e.g. `\newcommand{\source}[1]{\caption*{Source: {#1}}}`), keep those too, placed just before the title block.
+Replace the **entire preamble** (everything before `\begin{document}`) of each target beamer file with the following, preserving only the file's own `\title`, `\subtitle`, `\author` and `\date` lines. If a file defines custom commands used in its body (e.g. `\newcommand{\source}[1]{\caption*{Source: {#1}}}`), keep those too, placed just before the title block.
 
 ```latex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -228,43 +228,123 @@ Replace the **entire preamble** (everything before `\begin{document}`) of each t
 When converting an existing beamer file:
 
 1. **Preamble**: Replace everything before the `\title` line with the template preamble above. Remove all commented-out `\usetheme` and `\usecolortheme` lines.
-2. **Title block**: Keep the file's `\title`, `\subtitle`, `\author`, and `\date` lines. Update `\date` to the current year if it is outdated.
+2. **Title block**: Keep the file's `\title`, `\subtitle`, `\author` and `\date` lines. Update `\date` to the current year if it is outdated.
 3. **Logo**: Replace any logo path (`LEAP SU logo colour on white transparent.png`, `LEAP icon colour on white transparent.png`, or variants with `Figures/` or `Pictures/` prefixes) with `Pictures/LEAPlogo.png`.
 4. **Image paths**: Change all `{Figures/...}` references to `{Pictures/...}`.
-5. **Image sizing**: Never use `scale=` for content images (only for the logo). Use `height=0.7\paperheight,keepaspectratio` for standalone images, `height=0.60\paperheight,keepaspectratio` for images with captions, and `height=0.55\paperheight,keepaspectratio` for images in columns.
+5. **Image sizing**: Never use `scale=` for content images (only for the logo). Use `height=0.7\paperheight,keepaspectratio` for standalone images, `height=0.60\paperheight,keepaspectratio` for images with captions and `height=0.55\paperheight,keepaspectratio` for images in columns.
 6. **References frame**: If the file has a references frame, keep it as `\begin{frame}[allowframebreaks]{References}\printbibliography\end{frame}`.
 7. **Non-beamer files**: If a `.tex` file uses `\documentclass{article}` or similar (not beamer), apply the working paper template from Part 1 instead.
 
 ### Content style guide
 
-Apply these rules to every slide's content for a clean, minimalist look:
+Apply these rules to every slide's content for a clean, effective academic presentation.
+
+#### Action titles (non-negotiable)
+
+Every content slide title must be a **complete sentence stating the takeaway** -- not a topic label. This is the single most important formatting rule.
+
+| Instead of (topic label) | Use (action title) |
+|--------------------------|-------------------|
+| Results | Treatment effect is significant across all three cohorts |
+| Literature Review | Prior work leaves the causal mechanism unexplained |
+| Data | Dataset covers 40 years of county-level panel data |
+| Methodology | Regression discontinuity exploits a sharp funding threshold |
+
+**Ghost deck test:** Read only the action titles in sequence. They should tell the complete argument. If they don't, the deck's logic needs repair -- fix the titles or restructure before building.
+
+Title length: one to two lines. If more is needed, the point is not sharp enough yet. Title font: 24--28 pt, bold.
+
+#### Argument structure
+
+- **One argument per presentation.** Choose the claim that can be made convincingly in the available time. Everything else belongs in the appendix.
+- **Each slide has one job.** If a slide is doing two things, split it.
+- **Flow test:** After outlining, read slide titles in order. Each should make the next one feel like a natural consequence. If a slide feels disconnected, it is misplaced or dispensable.
+- **Research question on screen by slide 2 or 3.** State it explicitly and give it its own slide so the audience can orient.
+
+#### Deck architecture
+
+Required slides for a complete academic presentation, in this order:
+
+1. **Title slide** -- full title (statement or question, not just a topic), author(s), affiliations, venue, date.
+2. **Motivation / Context** (1--2 slides) -- why the problem matters; the gap or puzzle.
+3. **Research question** (1 slide) -- stated explicitly on its own slide.
+4. **Methods** (1--2 slides) -- only what the audience needs to evaluate the findings. Detail belongs in the appendix.
+5. **Results** (as many as needed) -- one finding per slide, one exhibit per slide, action title states the finding.
+6. **Discussion / Implications** (1--2 slides) -- interpret findings, connect back to the research question, address the main limitation(s) directly.
+7. **Conclusions** (1 slide) -- 2--4 bullet points restating key takeaways. **This slide stays on screen during Q\&A.** Do NOT follow it with ``Thank You'' or a blank slide.
+8. **References** -- complete citations for all sources cited in the deck.
+9. **Appendix** (clearly labelled) -- pre-built Q\&A slides anticipating likely audience questions, robustness checks, additional data.
+
+#### Timing and slide budget
+
+Maximum one slide per minute. Typical budgets:
+- 10-minute talk: 8--10 content slides (title + references excluded)
+- 15-minute talk: 12--14 content slides
+- 20-minute talk: 15--18 content slides
+- 45-minute seminar: 30--40 slides
+
+Know in advance which slides to skip if time runs short. Methods and context compress first; the research question, key result and conclusions are non-negotiable.
+
+#### Exhibit discipline
+
+- **One exhibit per slide.** One chart, table, diagram, equation block or map. If you need two charts to make a point, consider whether they are really one comparison (combine) or two points (two slides).
+- **Every exhibit must earn its place.** Cover the exhibit and read the title -- does the title still make sense without it? If yes, the exhibit is not necessary.
+- **Annotate the key finding directly on the chart.** Mark the key data point with a call-out arrow, highlighted region, text annotation (e.g. ``$\uparrow$ 23\% above baseline'') or a distinct visual treatment for the focal series. Do not make the audience search.
+- **Self-sufficient slide test:** Could someone understand the key point from this slide without hearing the narration? If not, add an annotation.
+- **Figure placement:** Place figures on the **left side** of the slide; interpretive bullets on the **right**. Evidence first, interpretation second.
+- **Prefer graphs over tables for results.** Tables require more cognitive load under time pressure. Reserve tables for precise numerical comparisons where exact values matter.
+- **Rebuild figures from your paper.** Paper figures are too small and use print-resolution fonts. Rebuild at presentation resolution with axis labels $\geq$ 16 pt.
+- **Don't include exhibits you won't discuss.** If you won't have time, move it to the appendix.
 
 #### Text density
+- **Max $\sim$40 words of body text per slide.** If you need more, the slide is doing too much -- split it or move content to the appendix.
 - **Max 5 bullets** per slide. If a slide has 6+, split it into two frames or trim to essentials.
 - **Max 2 levels** of nesting (main bullet + one sub-level). Never use a third level; flatten it up or split the slide.
 - Each bullet should be **1 line, max 2**. If longer, tighten the wording or break into sub-bullets.
+- Bullets are orientation cues, not information transfer. Each bullet contains one idea.
+- **Body font: 20 pt minimum.** If text must be smaller than 20 pt to fit, remove content until it fits at 20 pt.
 
 #### Bold usage
-- Use `\textbf{}` for **1-2 key terms per slide** as visual anchors.
+- Use `\textbf{}` for **1--2 key terms per slide** as visual anchors.
 - Pattern: `\textbf{Key term}: short explanation` (bold the concept, not the explanation).
-- Bold only 1-3 words. Never bold full sentences or long phrases.
+- Bold only 1--3 words. Never bold full sentences or long phrases.
 - Every content slide should have at least one bold term so the audience can scan.
 
 #### Italics
-- Use `\textit{}` only for: direct quotes, book/paper titles, and foreign-language terms.
+- Use `\textit{}` only for: direct quotes, book/paper titles, foreign-language terms and statistical notation.
 - Do not use italics for emphasis; use bold for that.
 
 #### General tone
 - Write for the listener, not the reader. Slides are prompts for the presenter, not a textbook.
-- Prefer short noun phrases over full sentences where possible.
-- Remove filler words ("it is important to note that..." -> just state the point).
+- Telegraphic language is acceptable. Omit articles and filler phrases where meaning is preserved (e.g. ``Intervention reduced costs by 23\% ($p < 0.01$)'' not ``Our study found that the intervention reduced costs significantly'').
+- Remove filler words (``it is important to note that...'' $\rightarrow$ just state the point).
 - Keep citations compact: prefer `\parencite*{key}` inline rather than spelling out author names in the text.
+
+#### Citations on slides
+- Every claim, figure or dataset that is not your own original work must be cited on the slide where it appears.
+- Place citations at the bottom of the slide in a smaller muted font (12--14 pt).
+- Figures from published sources need an attribution caption directly beneath the figure (e.g. ``Source: Jones et al., 2021, Fig.~3'').
 
 #### Structural patterns
 - **Image-only slides**: just the image, centred. No `\begin{figure}` wrapper needed.
-- **Two-column slides**: text in left column, image in right column. Keep text to 4-5 short bullets.
+- **Two-column slides**: figure in left column, text/interpretation in right column. Keep text to 4--5 short bullets.
 - **Quote slides**: use `\begin{quote}...\end{quote}` with italics, attributed below.
+- **Conclusions slide**: 2--4 bullet points. Contact info (email, QR code to working paper) at the bottom or on a final standalone slide. This slide stays on screen during Q\&A.
 - **Discussion/end slide**: LEAP logo centred, no extra text.
+
+#### Common mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Topic labels as titles | Write action titles (complete sentence, states the takeaway) |
+| Presenting the whole paper | Choose one argument; move the rest to the appendix |
+| Reading the slides aloud | Slides carry evidence; the presenter carries the argument |
+| Evidence without a ``so what'' | Annotate the key finding directly on the chart |
+| Body text $<$ 20 pt | Remove content until it fits at 20 pt |
+| Slides you won't discuss | Move to appendix if you won't have time |
+| Ending on ``Thank You'' | End on conclusions slide; it stays up during Q\&A |
+| Burying the research question | State it explicitly, on its own slide, by slide 2--3 |
+| No references slide | Always include one |
 
 ### Creating a new blank deck
 
@@ -365,7 +445,7 @@ If invoked without an argument (i.e. `/leapstyle slides`), create a new file wit
 
 **Preferred defaults:** All LEAP figures are saved at **10 x 6 inches** (width x height) and **600 DPI** unless the context demands otherwise.
 
-When applying the LEAP graph style to an R script, insert the following block near the top of the script (after `library()` calls, before any plotting code). Then update all figures to use `theme_leap()`, the LEAP colour palette, and `save_leap_fig()`.
+When applying the LEAP graph style to an R script, insert the following block near the top of the script (after `library()` calls, before any plotting code). Then update all figures to use `theme_leap()`, the LEAP colour palette and `save_leap_fig()`.
 
 ### LEAP colour palette and theme
 
@@ -532,7 +612,7 @@ A comprehensive writing-and-editing guide so that drafts come back in plain, cla
 
 ---
 
-### 4.1 Editing priorities
+### Editing priorities
 
 Prioritise the following, in roughly this order.
 
@@ -546,7 +626,7 @@ Prioritise the following, in roughly this order.
 
 ---
 
-### 4.2 Macro-structure
+### Macro-structure
 
 #### Openings
 
@@ -595,7 +675,7 @@ LLM action: Reorder paragraphs to prevent forward/back references; delete repeti
 
 ---
 
-### 4.3 Sentence-level style
+### Sentence-level style
 
 #### Prefer direct syntax over roundabout phrasing
 
@@ -651,12 +731,11 @@ LLM action: Use And/But judiciously to control flow; don't fear it when it impro
 
 ---
 
-### 4.4 Word choice
+### Word choice
 
 #### Plain English over inflated diction
 
 Frequent simplifications:
-- utilise -> use
 - prior to -> before
 - (adverbial) due to -> because of / owing to
 - regarding -> about
@@ -718,7 +797,7 @@ LLM action: Enforce one term per concept; if a term is historically contingent o
 
 ---
 
-### 4.5 Punctuation, typography and formatting
+### Punctuation, typography and formatting
 
 #### Venue-first, then default
 
@@ -806,7 +885,7 @@ LLM action: Spell out at first mention; remove non-standard acronyms; add a marg
 
 ---
 
-### 4.6 Quotation handling
+### Quotation handling
 
 #### Quote only when wording matters
 
@@ -837,7 +916,7 @@ LLM action: Convert long quotations to block format (if required by venue) or pa
 
 ---
 
-### 4.7 Numbers, data and evidential discipline
+### Numbers, data and evidential discipline
 
 - Always give denominators/totals alongside percentages ("state the actual number").
 - Avoid calling something an "annual rate" if it is a single year.
@@ -849,7 +928,7 @@ LLM action: Do not alter numbers; instead tighten wording around them, standardi
 
 ---
 
-### 4.8 Citations, references and footnotes
+### Citations, references and footnotes
 
 #### Reference list integrity
 
@@ -894,7 +973,7 @@ LLM action: Apply the venue's citation punctuation; if unknown, keep it consiste
 
 ---
 
-### 4.9 Metaphors, cliches and rhetorical control
+### Metaphors, cliches and rhetorical control
 
 - Avoid overused metaphors ("lens" is a frequent irritant).
 - Do not mix metaphors; clashes create absurd mental images.
@@ -947,5 +1026,15 @@ These choices follow Tufte, Cleveland & McGill, and Few:
 - **Horizontal gridlines only**: aid value comparison without adding clutter (Cleveland & McGill, 1984).
 - **Bottom + left spines only**: top and right spines carry no data; removing them increases the data-ink ratio (Tufte, 1983).
 - **No bar borders**: borders add non-data ink. White separators are the exception for grouped bars where adjacent fills would otherwise bleed together (Few, 2012).
-- **600 DPI**: ensures crisp reproduction in print, on slides, and on retina screens.
+- **600 DPI**: ensures crisp reproduction in print, on slides and on retina screens.
 - **Maroon for slide chrome, plum for data**: projected slides need a warm, high-contrast accent for UI elements; printed/PDF figures benefit from a deeper, cooler primary that reproduces well across devices. Graphs embedded in LEAP slides use the graph palette (plum, blue, sage, gold...), not the slide maroon.
+
+---
+
+## Acknowledgements
+
+This style guide draws on several inputs:
+
+- **Visual identity**: Nudge Studio (Mike Cruywagen) designed the LEAP colour palette and brand elements.
+- **Presentation content guidelines**: The beamer content style guide (Part 2) draws on the academic presentation framework by [Gabberflast](https://github.com/Gabberflast/academic-pptx-skill/blob/main/content_guidelines.md).
+- **Writing and editing guide**: Di Kilpert developed the writing and editing standards codified in Part 4.
