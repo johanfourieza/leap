@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "name": "leap-marketplace",
+  "description": "LEAP research group styles and tools",
+  "owner": {
+    "name": "Johan Fourie",
+    "url": "https://www.johanfourie.com"
+  },
+  "plugins": [
+    {
+      "name": "leap",
+      "description": "LEAP house style for LaTeX working papers, beamer slides, and R figures",
+      "source": "./"
+    }
+  ]
+}
