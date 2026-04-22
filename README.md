@@ -14,6 +14,18 @@ A [Claude Code](https://claude.ai/claude-code) skill that applies the LEAP Econo
 | `/leapstyle slides myfile.tex` | Apply the LEAP beamer slide template to a presentation |
 | `/leapstyle graph myscript.R` | Apply the LEAP graph identity (colours, theme, export) to an R script |
 
+### `/ehrstyle` — Economic History Review submission style
+
+A Claude Code skill that applies the *Economic History Review* house style (Notes for Contributors, Feb 2026 v1) to a LaTeX manuscript for EHR submission. Includes a bespoke biblatex style (`echr.bbx` + `echr.cbx`) that produces EHR footnote references with short-title form and *ibid.*/*idem* handling, surname-first bibliography, *"2nd ser."* / roman-volume handling for pre-1992 EHR citations, working-paper exclusion, UK -ize spelling, Oxford commas, and EHR-specific capitalisation rules (e.g. lower-case *global financial crisis*).
+
+| Command | What it does |
+|---------|-------------|
+| `/ehrstyle paper [file]` | Install preamble + `echr.bbx`/`echr.cbx`; switch to EHR style; walk through anonymisation, double-spacing, section CAPS, subsection flattening |
+| `/ehrstyle bib [file]` | Audit `references.bib`: add `skipbib=true` to non-published entries; add `shorttitle` where titles >5 words |
+| `/ehrstyle titlepage` | Copy the anonymous-submission title page template |
+| `/ehrstyle coverletter` | Copy the cover letter template |
+| `/ehrstyle check [file]` | Audit a draft against EHR style rules (spelling, Oxford commas, capitalisation, numbers, dates) |
+
 ### `/subcom` — DHET subsidy-committee adjudication
 
 A Claude Code skill that runs the full first-pass adjudication pipeline for South African DHET research-output subsidy submissions (books and book chapters). Given a project directory with policy docs, CSV manifests, and per-submission PDF folders, it produces a committee-ready scoring spreadsheet, a flagged shortlist, and a consolidated markdown dossier.
