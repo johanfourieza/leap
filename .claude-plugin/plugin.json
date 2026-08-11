@@ -1,7 +1,7 @@
 {
   "name": "leap",
   "description": "LEAP Economics resources: /leapstyle (house style for LaTeX papers, beamer slides, and R figures) and /subcom (DHET research-output subsidy-committee adjudication pipeline). Built for Johan Fourie's research group at LEAP, Stellenbosch University.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Johan Fourie",
     "url": "https://www.johanfourie.com"

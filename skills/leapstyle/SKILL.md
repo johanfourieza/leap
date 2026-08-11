@@ -1,6 +1,6 @@
 ---
 name: leapstyle
-description: Apply the LEAP Economics house style to LaTeX working papers, beamer slides, R figures, or academic writing and editing. Covers preambles, colour palette, graph theme and comprehensive writing and editing guidelines.
+description: Apply the LEAP Economics house style to LaTeX papers, beamer slides, R figures, or academic writing and editing. Covers the article preamble, AER paper structure, introduction and conclusion formulas, colour palette, graph theme and comprehensive writing and editing guidelines. This is the design skill, used while a paper is being written; to package a finished paper as a circulated working paper and file it on the shelf, use /leapwp.
 user-invocable: true
 argument-hint: <paper|slides|graph|writing> [filename]
 ---
@@ -8,17 +8,32 @@ argument-hint: <paper|slides|graph|writing> [filename]
 # LEAP Style Guide
 
 The unified visual identity for Johan Fourie's research group (LEAP, Stellenbosch University).
-Covers four outputs: **working papers** (LaTeX article), **presentations** (LaTeX beamer), **figures** (R / ggplot2) and **writing** (academic prose editing).
+Covers four outputs: **papers** (LaTeX article), **presentations** (LaTeX beamer), **figures** (R / ggplot2) and **writing** (academic prose editing).
+
+This is the skill for shaping a paper while it is being written: how it is
+structured, how it looks, how it reads. Load it at the start of a project and
+whenever a draft needs work.
+
+**Its companion is `/leapwp`.** When a paper is finished and needs to become a
+circulated working paper -- title footnote, acknowledgements, AI disclosure,
+cite-as line, `aea` bibliography, versioned filename, clean build, and the copy
+into `1Research\WorkingPapers\` -- that is `/leapwp`, not this skill. Nothing
+here writes a front page or files anything on the shelf.
 
 ## Usage
 
 ```
-/leapstyle paper myfile.tex        # apply the working paper template
+/leapstyle paper myfile.tex        # apply the article preamble, structure and formatting
 /leapstyle slides myfile.tex       # apply the beamer slide template
 /leapstyle graph myscript.R        # apply the LEAP graph identity to an R script
 /leapstyle writing myfile.tex      # apply LEAP writing and editing standards
 /leapstyle                         # (no argument) describe all four styles
 ```
+
+`/leapstyle paper` fits the preamble, checks the paper against the AER structure
+below, and audits the introduction and conclusion against the formulas in Part 4.
+It edits the file in place unless told otherwise, and it does not version, compile
+or publish. Run `/leapwp` for that.
 
 ---
 
@@ -43,7 +58,12 @@ All LEAP outputs draw from one palette. The first four colours are the workhorse
 
 ---
 
-## Part 1: LaTeX Working Paper
+## Part 1: LaTeX Paper
+
+The shape of a LEAP paper: preamble, section order, and the conventions that go
+with them. The front page -- title footnote, acknowledgements, AI disclosure,
+cite-as line -- is not here. It is added once, at the end, by `/leapwp`, so that
+a paper in progress never carries a half-written citation for its own draft.
 
 ### Preamble
 
@@ -53,6 +73,8 @@ Replace the preamble of the target `.tex` file with the following, preserving th
 \documentclass[11pt]{article}
 
 % ---------- LEAP working paper setup ----------
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[margin=1in]{geometry}
 \usepackage{setspace}
 \onehalfspacing
@@ -75,31 +97,102 @@ Replace the preamble of the target `.tex` file with the following, preserving th
 \usepackage[authoryear,round]{natbib}
 ```
 
-### Title page rules
+`fontenc` and `lmodern` are there for the posted PDF: without them the footnote
+markers, quotation marks and en dashes are not recoverable when a reader copies
+text out of the file. `lmodern` is metrically identical to Computer Modern, so
+the paper looks the same and paginates the same.
 
-1. Page 1 contains `\maketitle`, the abstract, keywords and JEL codes only.
-2. Format keywords and JEL codes as:
-   ```latex
-   \end{abstract}
-   \vspace{1em}\noindent\textbf{Keywords:} keyword1; keyword2; keyword3
+### Front matter
 
-   \vspace{0.25em}
-   \noindent\textbf{JEL codes:} X00; Y00; Z00
+While a paper is being written, keep the front matter minimal:
 
-   \vspace{0.5em}
-   ```
-3. Insert `\newpage` before `\section{Introduction}` so the body always starts on page 2.
+```latex
+\title{Paper Title}
+\author{Johan Fourie}
+\date{}
+```
 
-### Author and acknowledgements
+Do not draft the title footnote here. The acknowledgements, the AI disclosure and
+the cite-as line are written once, from the finished paper, by `/leapwp` -- which
+also fills in the co-author affiliation footnotes. A draft that carries a
+half-finished citation for itself is worse than one that carries none, because the
+citation is the thing most likely to be copied out and reused unchecked.
 
-- Use `\thanks{}` for affiliations and acknowledgements, attached to `\title` or `\author`.
-- Format: `\author{First Last\thanks{Affiliation.} \and Second Author\thanks{Affiliation.}}`
-- Leave `\date{}` empty (no date printed).
+Two rules do apply from the start, because they shape the paper rather than
+decorate it:
+
+1. Page 1 is `\maketitle`, the abstract, keywords and JEL codes, and nothing else.
+2. `\newpage` goes before `\section{Introduction}`, so the body always starts on
+   page 2.
+
+Format keywords and JEL codes as:
+
+```latex
+\end{abstract}
+\vspace{1em}\noindent\textbf{Keywords:} keyword1; keyword2; keyword3
+
+\vspace{0.25em}
+\noindent\textbf{JEL codes:} X00; Y00; Z00
+
+\vspace{0.5em}
+```
+
+Leave `\date{}` empty. No date is printed, in a draft or on the shelf.
+
+### Paper structure
+
+Follow the shape of an AER paper. This is the default section order; depart from
+it when the paper needs a different one, and say why.
+
+1. **Introduction** -- built to the formula in Part 4.
+2. **Background** -- the historical or institutional setting the design relies
+   on. Omit it when the setting is familiar to the paper's readers.
+3. **Data** -- sources, construction, coverage, and the measurement problems
+   that come with them.
+4. **Empirical strategy** -- the specification, the identifying assumption, and
+   the threats to it.
+5. **Results** -- main estimates first, then robustness.
+6. **Mechanisms and heterogeneity** -- after the reader has absorbed the main
+   result.
+7. **Conclusion** -- built to the formula in Part 4.
+
+Then References, then an appendix numbered A1, A2 and so on.
+
+Conventions that go with this structure:
+
+- **No separate literature-review section.** The literature belongs in the
+  introduction's contribution paragraphs, where each cited work is tied to what
+  this paper changes.
+- **No separate limitations or scope section, ever.** See Part 4 for where each
+  kind of limitation goes instead.
+- **Robustness is not a section by default.** Fold it into Results, or move it
+  to the appendix.
+- **Tables and figures stand alone.** Every one carries a note giving the
+  sample, the unit of observation and the standard-error clustering, so a reader
+  who turns straight to it can read it.
 
 ### Bibliography
 
-- Use `\bibliographystyle{plainnat}` with `\bibliography{references}` (or the relevant `.bib` file).
-- Place at the end of the document, before `\end{document}`.
+Cite with `natbib` in author-year form, and set the reference list in `aea.bst`, the
+official American Economic Association style. It prints full first names, inverts the
+first author and preserves title case.
+
+```latex
+\bibliographystyle{aea}
+\bibliography{references}
+```
+
+Place both commands at the end of the document, before `\end{document}`.
+
+Two things follow from this style, and both are handled by `/leapwp` when the paper
+is packaged: `aea.bst` is not in the standard MiKTeX or TeX Live tree, so a copy has
+to travel beside the `.tex`; and because `aea.bst` prints whatever the `.bib` holds,
+every entry needs the authors' full given names rather than initials. Never expand an
+initial from memory while drafting -- leave it, and let the packaging pass resolve it
+against a source.
+
+For a full adversarial audit of the `.bib` -- hallucinated references, chimeric
+references, wrong years -- run `/kris`.
 
 ### General formatting
 
@@ -109,8 +202,13 @@ Replace the preamble of the target `.tex` file with the following, preserving th
 
 ### Minimal working example
 
+A paper in progress. The front page is deliberately bare: `/leapwp` fills it in when
+the paper is finished.
+
 ```latex
 \documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[margin=1in]{geometry}
 \usepackage{setspace}
 \onehalfspacing
@@ -124,8 +222,8 @@ Replace the preamble of the target `.tex` file with the following, preserving th
 \hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
 \usepackage[authoryear,round]{natbib}
 
-\title{Paper Title\thanks{Acknowledgements here.}}
-\author{Johan Fourie\thanks{LEAP, Department of Economics, Stellenbosch University.}}
+\title{Writing in the Age of AI}
+\author{Johan Fourie}
 \date{}
 
 \begin{document}
@@ -153,11 +251,32 @@ Body text begins on page two.
 \label{fig:example}
 \end{figure}
 
-\bibliographystyle{plainnat}
+\bibliographystyle{aea}
 \bibliography{references}
 
 \end{document}
 ```
+
+### Packaging and publication: use `/leapwp`
+
+Everything that turns a styled paper into a posted one lives in `/leapwp`:
+
+- the front matter intake -- co-authors, acknowledgements, the AI tools used;
+- the title footnote, in its fixed order of acknowledgements, AI disclosure,
+  cite-as line;
+- the author block and its affiliation footnotes;
+- installing `aea.bst` and auditing the `.bib` for full given names;
+- the versioned filename, `JF_KS_WritingInThe_v2.tex`, written beside the file it
+  was made from and never over it;
+- supplements, versioned in lockstep with the paper they document;
+- the clean four-pass build, and reading the compiled front page rather than
+  trusting the source;
+- the copy into `1Research\WorkingPapers\`, with any superseded version moved into
+  `archive\`.
+
+Do none of that from this skill. A paper can be restyled a dozen times during a
+project; it should be versioned and shelved only when it is ready to circulate, and
+keeping the two apart is what stops the shelf filling with drafts.
 
 ---
 
@@ -169,7 +288,7 @@ Replace the **entire preamble** (everything before `\begin{document}`) of each t
 
 ```latex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Beamer Presentation – LEAP template
+% Beamer Presentation â€“ LEAP template
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[aspectratio=169]{beamer}
@@ -352,7 +471,7 @@ If invoked without an argument (i.e. `/leapstyle slides`), create a new file wit
 
 ```latex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Beamer Presentation – LEAP template
+% Beamer Presentation â€“ LEAP template
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[aspectratio=169]{beamer}
@@ -538,7 +657,7 @@ save_leap_fig <- function(fig_path, plot, width, height, dpi = 600) {
 When converting an existing R script to LEAP style:
 
 1. **Theme**: Replace any existing custom theme (e.g. `theme_minimal_pub`, `theme_bw(...)`, `theme_minimal(...)`) with `theme_leap()`.
-2. **Colours**: Replace greyscale fills and colours with the LEAP palette. Use hex codes directly in `scale_fill_manual()` / `scale_color_manual()` — do NOT use `LEAP_COLORS["name"]` inside these calls, because the carried name interferes with ggplot2's level matching. Assign colours in order of visual importance:
+2. **Colours**: Replace greyscale fills and colours with the LEAP palette. Use hex codes directly in `scale_fill_manual()` / `scale_color_manual()` â€” do NOT use `LEAP_COLORS["name"]` inside these calls, because the carried name interferes with ggplot2's level matching. Assign colours in order of visual importance:
    - Primary: `#5C2346` (plum)
    - Secondary: `#3D8EB9` (blue)
    - Tertiary: `#6B8E5E` (sage)
@@ -640,16 +759,95 @@ Be unusually strict about the first paragraph.
 
 LLM action: Rewrite the opening to be plain and inviting; move detail/citations later; remove first-paragraph footnotes unless essential.
 
+#### Introduction formula
+
+**The rule the rest of this formula serves: say what the paper does in paragraph 2.** Everything below is subordinate to that. If the reader has to reach paragraph 4 to learn what was done, the introduction has failed regardless of how well the other paragraphs are written.
+
+Treat this sequence as the LEAP default for an economics paper, not as a universal law. Depart from it when the paper or venue requires a different structure, but do not simulate concision by making the prescribed paragraphs unusually long.
+
+1. **Big-picture motivation and knowledge gap.** Explain why the question matters and state clearly what we do not yet know. Keep this paragraph to no more than half a page and preferably to a third of a page or less.
+2. **What the paper does.** Describe the main approach in one paragraph. Use two only when the approach is genuinely complicated. Give enough detail for the reader to understand and assess the method, but avoid a data inventory or a detailed identification discussion. If the design uses an instrument, name it and explain briefly why it is valid. Do not preview extensions, heterogeneity or mechanisms here.
+3. **What the paper finds.** State the main findings in context, then explain what they imply and why they matter. Do not present an unconnected list of estimates. Summarise the most important robustness evidence concisely, for example: `Our findings are robust to [variations].`
+4. **Extensions, heterogeneity and mechanisms.** Let the reader absorb the main result before adding these analyses. For closely related extensions, describe the analyses in one paragraph and their combined findings in the next. For distinct extensions, devote one paragraph to each and state what we do followed by what we find. More than four paragraphs on extensions will rarely be optimal.
+5. **Literature contributions.** Use no more than two paragraphs. Organise them around what the paper changes in the literature and why that change matters. Avoid a separate literature-review section unless the venue or subject requires one.
+6. **Roadmap.** End with a brief paragraph beginning, where natural, `The rest of the paper is structured as follows.` Keep the roadmap because paper structures differ, particularly in PhD work. Make it informative about the sequence rather than a bare list of section numbers.
+
+##### Introduction audit
+
+- Reach what the paper does in paragraph 2. A long motivational preamble weakens the introduction.
+- Keep citations sparse in the first few paragraphs. If a motivational citation helps, one representative source, introduced by `e.g.`, is usually enough. Reserve most introduction citations for the contribution paragraphs.
+- Name the missing knowledge explicitly. When relevant, explain what previously prevented an answer, such as unavailable data, absent exogenous variation or computational constraints, and how the paper overcomes that obstacle.
+- Avoid a strawman question whose qualitative answer is already accepted. Ask a quantitative question, such as `How much does air pollution affect human health?`, or explain the competing forces that make the answer uncertain.
+- State contributions as consequences, not merely differences. `Doe et al. (2012) do X, whereas we do Y` is incomplete until the introduction explains why Y changes what readers know.
+- Keep the focus on this paper. Compress accounts of prior work and frame comparisons around the present contribution: `Unlike Doe et al. (2012), our model includes a tradable service sector. This modification reverses their leakage result.`
+- Cite methodological precedents selectively. One representative `e.g.` citation is often sufficient in the introduction; discuss the broader methodological literature in the empirical-strategy section.
+- Put every citation in the contribution paragraphs into context. Explain the precise relationship, for example: `By focusing on adults, our study complements estimates of pollution's effects on infant mortality (Doe et al. 2012; Smith et al. 2013).`
+- Describe prior work neutrally. Prefer `builds on`, `extends` and `complements` to claims that earlier studies `failed` or have `little value`. Use a priority claim such as `We are the first to ...` only after verifying it, and always state why the contribution matters.
+- Interpret results. Connect estimates to the motivating question, knowledge gap or policy problem rather than leaving the reader with coefficients alone.
+- Balance detail by asking what the reader needs to understand and assess the paper. Omit minor data description, secondary results and routine checks. Include the source and logic of identification, key responses to obvious objections and a few informative robustness or placebo checks.
+- Remove material that is not directly relevant to the research question, even when it connects loosely to an outcome or policy in the paper.
+- Prefer first person (`we` or `I`) in economics. Use `this paper` occasionally if it improves variety, but avoid sustained third-person prose and habitual passive constructions such as `regressions are estimated`.
+- Keep footnotes out of the introduction. A footnote interrupts the one part of the paper that most needs to read straight through. The defensible exception is a note in the contribution paragraphs identifying tangentially related literature.
+
+When `/leapstyle paper` runs on a full manuscript, audit the introduction against this formula and report the result: which paragraph does which job, which slot is missing, and which is out of order. Do not silently rearrange an author's introduction; show the mapping and propose the repair.
+
+#### Conclusion formula
+
+The introduction earns the reader's attention; the conclusion decides what they carry away. Write it in the register expected by the *Journal of Political Economy* or the *Quarterly Journal of Economics*: three to five paragraphs, roughly 600 to 900 words, and never longer than the introduction.
+
+1. **The answer.** Name the question and answer it, in one or two sentences, at exactly the level the evidence supports. Not `this paper examined`. This paragraph should survive on its own: if a reader quoted only it, they would have the paper's result.
+2. **What the number means.** Put the headline estimate into a unit a reader can price -- a share of a benchmark, a comparison with a known effect, a back-of-envelope aggregate. This is the paragraph in which the result stops being a coefficient and becomes a fact about the world.
+3. **What changes in what we believed.** State the revision to priors relationally: what a reader who held the standard view should now believe instead, and why that matters. `Consistent with the literature` says nothing. Name the belief the paper moves.
+4. **Where the result binds.** Scope, not apology. Give the population, period and margin over which the estimate identifies something, then name the nearest setting where it would not hold and say why. Policy implications, if the paper has any, belong here, stated at the scope the design supports with the condition attached.
+5. **The open question.** Name the data, variation or experiment that would settle what remains. A research design, not a genre sentence.
+
+Paragraphs 2 and 3 may merge in a short paper; paragraph 4 may merge with 5. Paragraph 1 never merges with anything.
+
+Hard rules:
+
+- No new evidence. No number, table, figure or robustness result appears in the conclusion that is not already in the body.
+- No section-by-section summary (`Section 2 described the data...`).
+- No replay of the abstract sentence by sentence.
+- No `In conclusion`, `To conclude`, `This paper has shown that`, `Further research is needed`.
+- No bullet lists.
+- No claim wider or narrower in scope than the same claim in the results section. The conclusion is where overclaiming happens; check it against the results, not against the abstract.
+
+##### Conclusion audit
+
+- Does the first paragraph answer the title's question in one sentence?
+- Does the headline number appear with a unit and a benchmark?
+- Is there a sentence saying what a reader should now believe that they did not before?
+- Does any number appear that is not already in the body? There must be none.
+- Is the final paragraph a specific research design rather than a genre sentence?
+- Is the conclusion shorter than the introduction?
+
+#### No limitations section, ever
+
+Never give a paper a separate `Limitations`, `Caveats`, `Shortcomings` or `Scope conditions` section, and never a subsection either. A limitations section quarantines the honest content of a paper in the one place a referee reads as a confession, and it removes each limitation from the point where the reader actually needs it.
+
+Fold every limitation into the section where the reader meets the problem:
+
+| The limitation | Where it goes |
+|---|---|
+| Measurement error, coverage, selection into the source, transcription and linkage error | Data |
+| Threats to the identifying assumption, and the tests that address each one | Empirical strategy |
+| Statistical power, interpretation of magnitudes, competing explanations for the estimate | Results |
+| External validity and the scope of the finding | Conclusion, paragraph 4 |
+
+A limitation stated where the reader meets it reads as command of the material. The same sentence in a limitations section reads as an apology.
+
+Mechanical audit: flag any section or subsection heading matching `limitation`, `caveat`, `shortcoming` or `scope condition`, and any paragraph opening `A limitation of this study`, `One caveat` or `This study is not without`. Relocate the content according to the table and report each move.
+
 #### Thesis-language removal
 
 Avoid "thesis language" and "examiner-facing" writing.
 
 Common targets:
-- Signpost paragraphs ("This chapter/paper is structured as follows...") unless the journal demands them.
+- Generic signposting outside the introduction. Retain the short final introduction roadmap described above.
 - Meta-writing ("It is important to...", "This paper has shown...") -- write the content directly.
 - Over-citation and "student" citation patterns ("plonk, plonk, plonk" strings).
 
-LLM action: Remove thesis-like scaffolding, unless venue requires it; replace with direct statements of contribution and findings.
+LLM action: Remove thesis-like scaffolding, but retain an informative final introduction roadmap; replace other scaffolding with direct statements of contribution and findings.
 
 #### Lists and signposting
 
@@ -664,6 +862,69 @@ LLM action: Turn "preview + ramble" into: preview sentence (list) then short par
 - Do not default to the rhetorical "rule of three". Writers instinctively reach for three-item lists because they sound good, but the pattern quickly becomes formulaic.
 - Vary list lengths: one item, two, four or even five are all fine. Use three when three is genuinely the right number, not because three sounds nice.
 - When editing, actively look for triplets and ask whether each item earns its place. If one item is weaker or redundant, cut it. If a fourth item belongs, add it.
+- Mechanical check: `grep -c -E ", [a-z]+ and [a-z]+" file.tex`. Target near zero in body prose; justify every survivor as a true count of the things listed (then it is content, not rhetoric).
+
+#### Storytelling structure (added July 2026, from the Messy Research rewrite)
+
+A paper is still a story: a world, a shock, a turn, a dilemma, an ending. Before drafting, write the arc in five one-line beats and let the paper's structure follow them. Storytelling means structure, pacing and rhythm; it never means metaphor. The prose stays literal throughout, and the variation does the work figurative language would otherwise be asked to do.
+
+The reader to write for is a good economist outside the subfield. The test of the whole paper: could that reader finish it in one sitting and retell the main result at lunch, in one sentence?
+
+#### Radical literalness
+
+- No figurative language, personification or idiom in scientific prose. Signals do not "travel", text does not "bear" traces, results do not "carry" weight, prices do not "live" anywhere. Say what happens: the association weakens, the premium declines, the mass increases.
+- Established terms of art are not figurative language (the stamp, the pool, the toll, the window, the race, the commons, the market for lemons). Keep them. The line to hold: a term of art is a phrase the field already uses with a fixed meaning.
+- No smuggled verdicts: every evaluative word ("efficient", "dissipates", "better") must be backed by a stated result at exactly that strength. If the result proves a bound, write the bound.
+
+#### Verbs keep their objects
+
+Parsimony must never swallow meaning. "Polish stops separating" is wrong; "polish stops separating good work from plausible work" is right. Every transitive verb keeps its object, and every "gap", "pool", "path" or "threshold" says which one, unless the same sentence already named it. When compression and clarity conflict, clarity wins: use more words.
+
+#### Rhythm and variety (sentence and paragraph length)
+
+- Every paragraph of four or more sentences contains at least one sentence under ten words; no paragraph consists entirely of 25+-word sentences. A two-word sentence is allowed.
+- Short verdict sentences are the strongest beat available and the easiest to overuse. Ration them: twice per section, not once per paragraph.
+- Allow one- and two-sentence paragraphs at turns in the argument; keep long development paragraphs where the material needs room. No wall of same-sized blocks.
+- Audit rhythm mechanically: list sentence word-counts for the abstract and one long section; the numbers should look varied (13/25/10/2/25/16...), not uniform (30/29/53/40/35/33).
+
+#### Glossing for the non-specialist
+
+- Gloss every technical term at first use, in the same sentence, in plain words (affiliation: "better-skilled authors have better ideas on average"; the posterior: "the reputation readers rationally infer"; a Pigouvian toll: "a charge equal to the harm one more submission does to everyone else").
+- Words before parameters: explain a result in words first, then give the formula or condition. Never make the reader meet an inequality before knowing what its symbols are and what it is doing.
+- Define every symbol at or before first use, including the ones that feel obvious after months inside the model.
+- Formal statements and proofs may stay technical; the body prose does not get that license.
+
+#### No revision-relative language
+
+A manuscript speaks in one timeless voice. Never "the earlier draft", "now", "no longer" (in the revision sense) in the paper itself; revisions are discussed in the response letter only.
+
+#### Cite your own prior work in the third person
+
+This is the rule the timeless-voice rule above does not by itself catch, and it is a desk-reject-grade error: **never introduce your own earlier paper as an earlier paper.** A manuscript has no history that the reader can see. A predecessor working paper is a separate published object, and it is cited exactly like anyone else's work.
+
+| Never write | Write instead |
+|---|---|
+| An earlier working paper argued that X (Fourie, 2026). | Fourie (2026) argues that X. |
+| Our previous paper showed X. | Smith and Jones (2025) show X. |
+| In an earlier version of this paper, X. | *(delete: the reader is not reading a version)* |
+| A companion paper discusses X. | Fourie (2026) discusses X. |
+| This paper builds on our working paper. | *(delete, or state the substantive relation without the possessive)* |
+
+Two reasons, both fatal on their own. First, "an earlier working paper" tells the reader that the manuscript in front of them is a revision of something else, which invites the question of what changed rather than what is true. Second, in the AEA's own words a paper should stand alone: an editor reading "an earlier working paper" sees an author narrating a private drafting history in a public document.
+
+Naming yourself is not the problem and self-citation is not the problem. The framing is. `\citet{key}` and let the reference list do the work. If the predecessor is genuinely superseded by the paper at hand, say what it argues and what the present model adds, in ordinary literature-review voice, with no possessive and no chronology of drafts.
+
+Mechanical check, run on every pass:
+
+```bash
+grep -inE "an earlier (paper|version|draft|working paper)|our (earlier|previous|prior|companion) (paper|work)|in (an|the) earlier version|companion paper|this paper (builds on|extends) (our|my)" file.tex
+```
+
+Any hit is a rewrite, not a judgement call. Then read every self-citation in context: `grep -n -B3 -A2 "<yoursurname><year>" file.tex`, and confirm each one is introduced by author-year and not by its relationship to the manuscript.
+
+#### The cold read (final QA)
+
+Have an independent reader (a person, or an agent told to be "an applied economist, not a theorist") read only the PDF and report: (a) any sentence read twice, (b) where the story lost them, (c) residual monotony, (d) the one-sentence lunch retell. Fix everything in (a)-(c). If (d) fails, the problem is the paper, not the reader. If the style pass followed a content revision, verify no content drifted: citation multiset identical, equation and theorem counts identical, every number and hedge intact, verification scripts still passing.
 
 #### Paragraph integrity
 
@@ -683,6 +944,7 @@ LLM action: Reorder paragraphs to prevent forward/back references; delete repeti
 - Replace nouny constructions with verbs ("played an important role in increasing" -> "increased").
 - Avoid tacking on clauses with "with" when a new sentence would be clearer.
 - Prefer active voice where it clarifies agency (especially for methods).
+- In economics, prefer first person (`we` or `I`) to sustained third-person references to `this paper`. Use passive voice only when the object or procedure, rather than the actor, deserves emphasis.
 
 LLM action: Seek the actor and the action; make the subject do the verb; split sentences that are overloaded.
 
@@ -933,21 +1195,25 @@ LLM action: Do not alter numbers; instead tighten wording around them, standardi
 #### Reference list integrity
 
 - Every cited work must be in the reference list; the list must contain only cited works.
+- Every entry carries the authors' full given names, not initials. When a `.bib` entry has only initials, resolve it against a source or ask -- never expand an initial from memory. The resolution procedure is in `/leapwp`, which runs the audit when the paper is packaged.
 
 #### Citation placement and density
 
-- Avoid citations in the first paragraph.
+- Keep citations sparse in the first few introduction paragraphs and avoid them in the first paragraph where possible. Put most introduction citations in the contribution paragraphs.
+- When a motivational or methodological precedent is useful early in the introduction, one representative `e.g.` citation is usually enough.
 - Do not cite sources for basic facts that can be found anywhere.
 - Avoid scattershot citations; collate them so they serve the reader.
+- In contribution paragraphs, cite only directly relevant work and state how each cited paper relates to the present contribution.
 
 LLM action: Move or consolidate citations; add margin notes when a citation seems irrelevant or when the claim needs a source.
 
 #### Footnote discipline
 
-- Don't use footnotes to expand the text (especially in the first paragraph).
+- Don't use footnotes to expand the text. Aim for no footnotes in the introduction where possible and no more than about one footnote per page in the paper as a general rule.
 - Use footnotes for necessary clarifications, source details or venue-required apparatus.
+- The most defensible introduction footnotes usually identify tangentially related literature in the contribution paragraphs.
 
-LLM action: Move essential content into the main text; delete non-essential footnote expansions.
+LLM action: Delete, integrate or relocate each avoidable footnote; move essential content into the main text and tangential material to a more appropriate section.
 
 #### "et al."
 
@@ -1038,3 +1304,5 @@ This style guide draws on several inputs:
 - **Visual identity**: Nudge Studio (Mike Cruywagen) designed the LEAP colour palette and brand elements.
 - **Presentation content guidelines**: The beamer content style guide (Part 2) draws on the academic presentation framework by [Gabberflast](https://github.com/Gabberflast/academic-pptx-skill/blob/main/content_guidelines.md).
 - **Writing and editing guide**: Di Kilpert developed the writing and editing standards codified in Part 4.
+- **Introduction formula**: the paragraph sequence and the audit in Part 4 follow Tatyana Deryugina, [A two-for-one blog post on writing introductions](https://deryugina.com/a-two-for-one-blog-post-on-writing-introductions/).
+- **Bibliography style**: `aea.bst` is the American Economic Association's BibTeX style (version 2009.05.20), distributed by the AEA. The file itself ships with `/leapwp`, which installs it beside the paper.

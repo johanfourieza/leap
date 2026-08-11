@@ -10,9 +10,15 @@ A [Claude Code](https://claude.ai/claude-code) skill that applies the LEAP Econo
 
 | Command | What it does |
 |---------|-------------|
-| `/leapstyle paper myfile.tex` | Apply the LEAP working paper template to a LaTeX article |
+| `/leapstyle paper myfile.tex` | Apply the LEAP article layout and AER section structure to a LaTeX paper |
 | `/leapstyle slides myfile.tex` | Apply the LEAP beamer slide template to a presentation |
 | `/leapstyle graph myscript.R` | Apply the LEAP graph identity (colours, theme, export) to an R script |
+| `/leapstyle writing draft.tex` | Apply the LEAP prose-editing rules, including the introduction and conclusion formulas |
+
+This is the design skill, used while a paper is being written. It deliberately
+leaves the front page alone: title footnotes, acknowledgements, AI disclosures,
+cite-as lines, versioned filenames and the copy onto the working paper shelf all
+belong to a separate packaging step and are not part of this skill.
 
 ### `/subcom` — DHET subsidy-committee adjudication
 
