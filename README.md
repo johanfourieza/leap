@@ -18,7 +18,35 @@ A [Claude Code](https://claude.ai/claude-code) skill that applies the LEAP Econo
 This is the design skill, used while a paper is being written. It deliberately
 leaves the front page alone: title footnotes, acknowledgements, AI disclosures,
 cite-as lines, versioned filenames and the copy onto the working paper shelf all
-belong to a separate packaging step and are not part of this skill.
+belong to `/leapwp` below.
+
+### `/leapwp` — package a finished paper as a working paper
+
+The companion to `/leapstyle`. Where `/leapstyle` shapes a paper while it is
+being written, `/leapwp` runs once at the end and turns the finished manuscript
+into something that can circulate under its own name.
+
+| Command | What it does |
+|---------|-------------|
+| `/leapwp path/to/paper.tex` | Package that file as a working paper |
+| `/leapwp path/to/folder` | Find the manuscript in that folder, then package it |
+| `/leapwp` | Ask which paper, then package it |
+
+What the packaging pass covers:
+
+- the front matter intake — co-authors, acknowledgements, the AI tools used;
+- the title footnote, in its fixed order of acknowledgements, AI disclosure and
+  cite-as line, plus the author block and its affiliation footnotes;
+- the `aea` bibliography, and an audit of the `.bib` for full given names rather
+  than initials;
+- a versioned filename, written beside the file it was made from and never over it;
+- a clean compile, checked by reading the built front page rather than the source;
+- a machine-readable Markdown twin of the paper, for AI and crawler readers;
+- the copy of both files onto the working paper shelf, archiving anything they
+  supersede.
+
+It does not rewrite the paper. If the prose or structure needs work, that is
+`/leapstyle writing` or `/leapstyle paper`, and it happens first.
 
 ### `/subcom` — DHET subsidy-committee adjudication
 

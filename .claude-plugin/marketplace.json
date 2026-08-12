@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "leap",
-      "description": "LEAP house style (/leapstyle) for LaTeX papers, beamer slides, and R figures; DHET subsidy-committee adjudication (/subcom) for book and chapter submissions",
+      "description": "LEAP house style (/leapstyle) for LaTeX papers, beamer slides, and R figures; working paper packaging (/leapwp); DHET subsidy-committee adjudication (/subcom) for book and chapter submissions",
       "source": "./"
     }
   ]
